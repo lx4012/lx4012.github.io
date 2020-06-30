@@ -1,7 +1,7 @@
 <!DOCTYPE html><html><head><meta charset="UTF-8"><title>Login Update Bonus Calculator</title><link rel="stylesheet" href="bootstrap.min.css">
 </head><body><!--
  by /u/lx4012
- the pixel art was made with: pixiv.net/en/artworks/72028156
+ the pixel art was made with (NSFW): pixiv.net/en/artworks/72028156
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣿⣿⣿⣿⣿⠃⠀⠀⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣿⣿⣿⣿⡏⠀⠀⠀⠘⣽⣿⣿⣿⣿⣿⣿⣿⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣮⣟⡿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣻⣿⣿⣿⡿⠀⠀⠀⠀⠀⢳⢿⣿⣿⣿⣿⣿⣿⣷⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
@@ -69,25 +69,22 @@
 			<div>
 		</div>
 		<br>
-		<h3 id="wew"></h3>
+		<h3>You will receive <b class="text-info" id="step-on-me-yu-senpai">0</b> SQ</h3>
 	</div>
 </div>
 
-<script src="jquery-3.3.1.slim.min.js"></script>
-<script src="popper.min.js"></script>
-<script src="bootstrap.min.js"></script>
 <script>
 
 function I_want_Yu_Miaoyi_to_look_at_me_in_disgust(e, x) {
 
 	x = parseInt(x);
 	x = (x > 99) ? parseInt((x/50)-1, 10) * 10 : 0;
-	$("#wew").html("You will receive <b class=\"text-info\">" + x.toString().split(".")[0] + "</b> SQ");
+	document.getElementById("step-on-me-yu-senpai").innerHTML = x.toString().split(".")[0];
 }
 
 function tangina() {
 
-	I_want_Yu_Miaoyi_to_look_at_me_in_disgust({ and_call_me : "A Fucking Weeb" }, $("#yeet").val());
+	I_want_Yu_Miaoyi_to_look_at_me_in_disgust({ and_call_me : "A Fucking Weeb" }, document.getElementById("yeet").value);
 }
 
 </script>
