@@ -1,0 +1,74 @@
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+<script>
+
+window.onload = function () {
+
+	$("#gachaSummon").show();
+}
+
+function getRandomInteger(min, max) {
+
+	return Math.floor(Math.random() * (max - min) ) + min;
+}
+
+var servantPool = {};
+var ifThisNumberGetsToZeroYouGay = 2;
+
+function gacha() {
+
+	var servantID = getRandomInteger(1, 64);
+	var servantPortrait = $(new Image());
+
+	if ( servantPool[servantID] ) {
+
+		servantPool[servantID]++;
+
+		if ( servantPool[servantID] >= 3 ) {
+
+			$("#gachaSummon").hide();
+			servantPortrait[0].onload = function () {
+			
+				setTimeout(function () {
+
+					if ( ifThisNumberGetsToZeroYouGay > 0 ) {
+
+						ifThisNumberGetsToZeroYouGay--;
+
+						if ( confirm("You summoned this servant 3 times, keep it?") ) {
+						
+							alert("Congratulations you unlocked this servant permanently");
+						}
+						else {
+
+							servantPool[servantID] = 0;
+							$("#gachaSummon").show();
+						}
+					}
+					else {
+					
+						alert("You summoned this servant 3 times and you ran out of rerolls. Congratulations you unlocked this servant permanently");
+					}
+				}, 500);
+			};
+		}
+	}
+	else {
+
+		servantPool[servantID] = 1;
+	}
+
+	servantPortrait.attr("src", "servant (" + servantID + ").png");
+	$("#gachaResult").empty().append( servantPortrait );
+}
+
+</script>
+</head>
+<body style="text-align:center;">
+
+<div style="text-align:center;min-height:150px;" id="gachaResult"></div>
+<button id="gachaSummon" style="display:none;padding:10px;font-size:32px;margin-top:15px;cursor:pointer;" onclick="gacha();">GACHA</button>
+
+</body>
+</html>
