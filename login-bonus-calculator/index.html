@@ -81,7 +81,7 @@ var anniv = new Date("Tue Jul 07 2020 00:00:00 GMT-0400");
 function I_want_Yu_Miaoyi_to_look_at_me_in_disgust(e, x) {
 
 	x = parseInt(x) + Math.ceil((anniv.getTime()-glasses.getTime())/(86400000));
-	x = (x > 99) ? parseInt((x/50)-1, 10) * 10 : 0;
+	x = (x > 100) ? parseInt((x/50)-1, 10) * 10 : 0;
 	document.getElementById("step-on-me-yu-senpai").innerHTML = x.toString().split(".")[0];
 }
 
