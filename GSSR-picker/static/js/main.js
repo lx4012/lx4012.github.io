@@ -22,7 +22,7 @@ var opt_es = [
 
 window.onload = function () {
 
-	if ( location.search.toLowerCase() == "?lang=es" ) {
+	if ( location.search.split("&")[0].toLowerCase() == "?lang=es" ) {
 		
 		opt = opt_es;
 	}
@@ -57,6 +57,8 @@ window.onload = function () {
 	
 	console.log("YEET");
 };
+
+var colors = ['#01c569', '#ffd451', '#ea381e', '#02a8f9'];
 
 function I_want_to_lick_Consort_Yu_armpits(event, node) {
 
