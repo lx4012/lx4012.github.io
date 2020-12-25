@@ -1,26 +1,26 @@
 const servant_count = 43;
 
-window.onload = function () {
+var opt = [
+	["Servants that I:", "Download as PNG", "Stats for Masochists"],
+	"Don't have but REALLY WANT",
+	"Already have and REALLY WANT TO NP+",
+	"Don't have but they'll be welcome",
+	"Already have and don't mind a copy",
+	"Don't have and I REALLY don't want",
+	"Already have and DON'T WANT MORE"
+];
 
-	let opt = [
-		["Servants that I:", "Download as PNG"],
-		"Don't have but REALLY WANT",
-		"Already have and REALLY WANT TO NP+",
-		"Don't have but they'll be welcome",
-		"Already have and don't mind a copy",
-		"Don't have and I REALLY don't want",
-		"Already have and DON'T WANT MORE"
-	];
-	
-	let opt_es = [
-		["Servants que yo:", "Descargar como PNG"],
-		"No tengo PERO REALMENTE QUIERO",
-		"Ya tengo Y QUIERO SUBIR SUS NP",
-		"No tengo pero igual seran bienvenidos",
-		"Ya tengo y no me molesta otra copia",
-		"No tengo y realmente NO LOS QUIERO",
-		"Ya tengo y NO QUIERO OTRO"
-	];
+var opt_es = [
+	["Servants que yo:", "Descargar como PNG", "Estadisticas para Masoquistas"],
+	"No tengo PERO REALMENTE QUIERO",
+	"Ya tengo Y QUIERO SUBIR SUS NP",
+	"No tengo pero igual seran bienvenidos",
+	"Ya tengo y no me molesta otra copia",
+	"No tengo y realmente NO LOS QUIERO",
+	"Ya tengo y NO QUIERO OTRO"
+];
+
+window.onload = function () {
 
 	if ( location.search.toLowerCase() == "?lang=es" ) {
 		
@@ -29,6 +29,7 @@ window.onload = function () {
 
 	$("#wachadoing").text(opt[0][0]);
 	$("#download").text(opt[0][1]);
+	$("#didnt-read-the-VN").text(opt[0][2]);
 	
 	let container = $("#options");
 
@@ -42,9 +43,10 @@ window.onload = function () {
 		}
 	}
 
+	$("#statistics").hide();
 	$("#whoami1").attr("checked", true);
 	$("#site").text(location.href);
-	$("#site").toggle();
+	$("#site").hide();
 
 	container = $("#servants");
 
@@ -77,6 +79,8 @@ function I_want_to_lick_Consort_Yu_armpits(event, node) {
 
 		node.toggleClass("ghost " + selectedClass);
 	}
+	
+	there_is_no_tsukihime_remake();
 }
 
 function step_on_me_yu_senpai() {
@@ -117,6 +121,13 @@ function tamago_no_mae() {
 }
 
 function fus_ro_dah() {
+
+	there_is_no_tsukihime_remake();
+	$("#statistics").toggle();
+}
+
+function there_is_no_tsukihime_remake() {
 	
-	alert("not implemented");
+	let stats = [1, 2, 3, 4, 5, 6].map( x => "<b>" + opt[x] + ":</b> " + ( ( ( $(".color" + x).length - 1 ) / servant_count ) * 100 ).toFixed(2) + "%" )
+	$("#statistics").html(stats.join("<br />") + "<br /><br />");
 }
