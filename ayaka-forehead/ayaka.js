@@ -27,8 +27,7 @@ window.onload = function () {
 			});
 		}
 
-		$("#turno").val( ["Paimon's", "Your"][turn] + " turn" );
-		$("#wombat").hide();
+		update_turn();
 
 		if (turn == 0) {
 
@@ -49,17 +48,6 @@ window.onload = function () {
 		return true;
 	}
 
-	function get_grid_index(node) {
-
-		for (var i=0; i<visual.length; i++) {
-		
-			if ( node == visual[i]) {
-			
-				return i;
-			}
-		}
-	}
-
 	function player_move(n) {
 
 		if (turn == 0) {
@@ -67,7 +55,7 @@ window.onload = function () {
 			return;
 		}
 
-		let index = get_grid_index(n);
+		let index = visual.indexOf(n);
 
 		if ( grid[index] != 0 ) {
 
@@ -75,12 +63,11 @@ window.onload = function () {
 		}
 
 		grid[index] = 2;
-		turn = 1-turn;
 		visually_update(index, "⭕");
 
-
 		if ( !chicken_winner() ) {
-		
+
+			turn = 1-turn;
 			paimon_move();
 		}
 	}
@@ -148,8 +135,12 @@ window.onload = function () {
 
 		node.toggleClass("disabled");
 		node.text(value);
+	}
+
+	function update_turn(value) {
 
 		$("#turno").val( ["Paimon's", "Your"][turn] + " turn" );
+		$("#wombat").hide();
 	}
 
 	function paimon_move() {
