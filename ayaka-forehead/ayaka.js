@@ -35,19 +35,6 @@ window.onload = function () {
 		}
 	}
 
-	function is_finished() {
-
-		for (var i=0; i<grid.length; i++) {
-		
-			if ( grid[i] == 0 ) {
-
-				return false;
-			}
-		}
-
-		return true;
-	}
-
 	function player_move(n) {
 
 		if (turn == 0) {
@@ -120,7 +107,7 @@ window.onload = function () {
 		
 		// Default
 
-		if ( is_finished() ) {
+		if ( grid.some(x => x == 0) ) {
 
 			finish_game(0);
 			return true;
