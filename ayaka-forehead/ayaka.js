@@ -107,7 +107,7 @@ window.onload = function () {
 		
 		// Default
 
-		if ( grid.some(x => x != 0) ) {
+		if ( !grid.some(x => x == 0) ) {
 
 			finish_game(0);
 			return true;
