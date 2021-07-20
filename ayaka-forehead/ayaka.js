@@ -101,12 +101,8 @@ window.onload = function () {
 
 	function finish_game(result){
 
-		setTimeout(function () {
-
-			$("#turno").text( ["Tie", "Paimon won", "You won"][result] );
-			$("#wombat").show();
-
-		}, 50);
+		$("#turno").text( ["Tie", "Paimon won", "You won"][result] );
+		$("#wombat").show();
 	}
 
 	function chicken_winner() {
