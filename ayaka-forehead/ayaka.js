@@ -27,7 +27,7 @@ window.onload = function () {
 			});
 		}
 
-		visually_update_turn();
+		visually_update_turn(turn);
 
 		if (turn == 0) {
 
@@ -122,12 +122,12 @@ window.onload = function () {
 
 		node.toggleClass("disabled");
 		node.text(value);
-		visually_update_turn();
 	}
 
 	function finish_turn() {
-		
+
 		turn = 1 - turn;
+		visually_update_turn(turn);
 	}
 
 	function visually_update_turn() {
