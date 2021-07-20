@@ -27,7 +27,7 @@ window.onload = function () {
 			});
 		}
 
-		update_turn();
+		visually_update_turn();
 
 		if (turn == 0) {
 
@@ -122,6 +122,7 @@ window.onload = function () {
 
 		node.toggleClass("disabled");
 		node.text(value);
+		visually_update_turn();
 	}
 
 	function finish_turn() {
@@ -129,7 +130,7 @@ window.onload = function () {
 		turn = 1 - turn;
 	}
 
-	function update_turn(value) {
+	function visually_update_turn() {
 
 		$("#turno").val( ["Paimon's", "Your"][turn] + " turn" );
 		$("#wombat").hide();
