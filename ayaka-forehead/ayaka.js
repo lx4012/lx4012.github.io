@@ -54,7 +54,7 @@ window.onload = function () {
 
 		if ( !chicken_winner() ) {
 
-			turn = 1-turn;
+			finish_turn();
 			paimon_move();
 		}
 	}
@@ -107,7 +107,7 @@ window.onload = function () {
 		
 		// Default
 
-		if ( grid.some(x => x == 0) ) {
+		if ( grid.some(x => x != 0) ) {
 
 			finish_game(0);
 			return true;
@@ -122,6 +122,11 @@ window.onload = function () {
 
 		node.toggleClass("disabled");
 		node.text(value);
+	}
+
+	function finish_turn() {
+		
+		turn = 1 - turn;
 	}
 
 	function update_turn(value) {
@@ -149,7 +154,7 @@ window.onload = function () {
 
 			if ( !chicken_winner() ) {
 				
-				turn = 1-turn;
+				finish_turn();
 			}
 
 		}, 1100);
@@ -169,12 +174,12 @@ window.onload = function () {
 
 		if ( percent > 0 ) 
 		{
-			node.css("top", (origin.top*percent) + target.top - 100);
-			node.css("left", (origin.left*percent) + target.left -50);
+			node.css("top", (origin.top * percent) + target.top - 100);
+			node.css("left", (origin.left * percent) + target.left - 50);
 
 			setTimeout(function () {
-			
-				perform_move(origin, target, percent-0.01);
+
+				perform_move(origin, target, percent - 0.01);
 
 			}, 10);
 		}
