@@ -1,0 +1,368 @@
+<html>
+<head>
+<meta charset="utf-8" /> 
+<title>Ayaka forehead</title>
+<style>
+
+#baimon {
+
+	vertical-align: middle;
+	position: fixed;
+}
+
+.square {
+
+	width: 50px;
+	line-height:50px;
+	
+	border-left: 2px solid black;
+	display: inline-block;
+	
+	cursor: pointer;
+	text-align: center;
+	font-size: 32px;
+}
+
+.square:hover {
+
+	background: #00968875;
+}
+
+.disabled {
+
+	cursor: default;
+}
+
+.disabled:hover {
+
+	background: #ff00006e;
+}
+
+.square:active {
+
+	background: transparent;
+}
+
+.square:first-child {
+
+	border-left: none;
+}
+
+.alfajor {
+
+	border-bottom: 2px solid black;
+}
+
+.alfajor:last-child {
+
+	border-bottom: none;
+}
+
+#game {
+
+	margin-top: 220px;
+	margin-left: 220px;
+	display: inline-block;
+}
+
+#ayaka {
+
+	width:600px;
+	height:600px;
+	vertical-align: middle;
+	display: inline-block;
+	background-image:url('forehead.jpg');
+}
+
+body, #ayaka, .square {
+
+	margin: 0px;
+}
+
+input {
+
+	font-size:48px;
+	width: 600px;
+	display: block;
+	text-align: center;
+}
+
+#wombat {
+
+	font-size: 48px;
+	width: 600px;
+	background-color: #1a73e8;
+	color: white;
+	
+	cursor: pointer;
+}
+
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+window.onload = function () {
+
+function random_int(min, max) {
+
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+	let grid;
+	let turn;
+	let visual = $(".square");
+
+	innit();
+
+function innit() {
+
+	turn = random_int(0, 99) % 2;
+	grid = [];
+
+	for (var i=0; i<visual.length; i++) {
+	
+		grid.push(0);
+		visual[i].innerHTML = '&nbsp;';
+		$(visual[i]).removeClass("disabled");
+		$(visual[i]).click(function (a) {
+
+			player_move(a.target);
+		});
+	}
+	
+	if (turn == 0) {
+	
+		paimon_move();
+	}
+	else {
+
+		$("#turno").val( "Your turn" );
+	}
+	
+	$("#wombat").hide();
+	$("#turno").show();
+}
+
+$("#wombat").click(function () {
+
+	innit();
+});
+
+function is_finished() {
+
+	for (var i=0; i<grid.length; i++) {
+	
+		if ( grid[i] == 0 ) {
+
+			return false;
+		}
+	}
+
+	return true;
+}
+
+function get_grid_index(node) {
+
+	for (var i=0; i<visual.length; i++) {
+	
+		if ( node == visual[i]) {
+		
+			return i;
+		}
+	}
+}
+
+function player_move(n) {
+
+	if (turn == 0) {
+	
+		return;
+	}
+
+	let index = get_grid_index(n);
+
+	if ( grid[index] != 0 ) {
+
+		return;
+	}
+
+	grid[index] = 2;
+	turn = 1-turn;
+	visually_update(index, "⭕");
+
+
+	if ( !chicken_winner() ) {
+	
+		paimon_move();
+	}
+}
+
+function check_horizontal(index) {
+
+	return grid[index] != 0 && grid[index] == grid[index+1] && grid[index+1] == grid[index+2];
+}
+
+function check_vertical(index) {
+
+	return grid[index] != 0 && grid[index] == grid[index+3] && grid[index+3] == grid[index+6];
+}
+
+function finish_game(result){
+
+	$("#turno").hide();
+
+	setTimeout(function () {
+
+		if ( result == 0 ) {
+		
+			alert("Tie");
+		}
+		else if (result == 1) {
+		
+			alert("Paimon won");
+		}
+		else {
+
+			alert("You won");
+		}
+
+		$("#wombat").show();
+
+	}, 50);
+}
+
+function chicken_winner() {
+
+	// Horizontal && Vertical
+	for (var i=0; i<3; i++) {
+
+		if ( check_horizontal(i * 3) ) {
+
+			finish_game(grid[i * 3]);
+			return true;
+		}
+
+		if ( check_vertical(i) ) {
+
+			finish_game(grid[i]);
+			return true;
+		}
+	}	
+
+	// Diagonal
+	if ( grid[0] != 0 && grid[0] == grid[4] && grid[4] == grid[8] ) {
+
+		finish_game(grid[0]);
+		return true;
+	}
+	if ( grid[2] != 0 && grid[2] == grid[4] && grid[4] == grid[6] ) {
+
+		finish_game(grid[2]);
+		return true;
+	}
+	
+	// Default
+
+	if ( is_finished() ) {
+
+		finish_game(0);
+		return true;
+	}
+	
+	return false;
+}
+
+function visually_update(index, value) {
+
+	let node = $( visual[ index ] );
+
+	node.toggleClass("disabled");
+	node.text(value);
+	
+	$("#turno").val( ["Paimon's", "Your"][turn] + " turn" );
+}
+
+function paimon_move() {
+
+	let index;
+
+	do {
+
+		index = random_int(0, 8);
+	}
+	while ( grid[index] != 0 );
+
+	grid[index] = 1;
+	turn = 1-turn;
+	animate_paimon(index);
+
+	setTimeout(function () {
+	
+		visually_update(index, "❌");
+		chicken_winner();
+		
+	}, 1100);
+}
+
+function animate_paimon(index) {
+
+	let origin = $("#baimon")[0].getBoundingClientRect();
+	let target = visual[index].getBoundingClientRect();
+
+	perform_move(origin, target, 1);
+}
+
+function perform_move(origin, target, percent) {
+
+	let node = $("#baimon");
+
+	if ( percent > 0 ) 
+	{
+		node.css("top", (origin.top*percent) + target.top - 100);
+		node.css("left", (origin.left*percent) + target.left -50);
+
+		setTimeout(function () {
+		
+			perform_move(origin, target, percent-0.01);
+
+		}, 10);
+	}
+	else {
+
+		node.css("top", "");
+		node.css("left", "");
+	}
+}
+
+};
+
+</script>
+</head>
+<body>
+
+<div id="ayaka">
+
+	<div id="game">
+		<div class="alfajor">
+			<div class="square"></div><div class="square"></div><div class="square"></div>
+		</div>
+		<div class="alfajor">
+			<div class="square"></div><div class="square"></div><div class="square"></div>
+		</div>
+		<div class="alfajor">
+			<div class="square"></div><div class="square"></div><div class="square"></div>
+		</div>
+	</div>
+
+</div>
+<img id="baimon" src="baimon.png" />
+<div class="options">
+
+<input type="text" disabled id="turno" />
+
+<button id="wombat">Play Again</button>
+
+</div>
+
+</body>
+</html>
