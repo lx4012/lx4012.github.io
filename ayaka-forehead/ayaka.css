@@ -80,6 +80,10 @@ input {
 	width: 600px;
 	display: block;
 	text-align: center;
+	padding: 0px;
+	border: none;
+	background: #f8f8f8;
+	padding-bottom: 30px;
 }
 
 #wombat {
