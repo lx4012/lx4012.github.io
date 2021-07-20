@@ -101,7 +101,7 @@ window.onload = function () {
 
 	function finish_game(result){
 
-		$("#turno").text( ["Tie", "Paimon won", "You won"][result] );
+		$("#turno").val( ["Tie", "Paimon won", "You won"][result] );
 		$("#wombat").show();
 	}
 
