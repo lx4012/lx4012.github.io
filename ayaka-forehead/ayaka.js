@@ -55,7 +55,7 @@ window.onload = function () {
 			return;
 		}
 
-		let index = visual.indexOf(n);
+		let index = visual.index(n);
 
 		if ( grid[index] != 0 ) {
 
