@@ -27,17 +27,13 @@ window.onload = function () {
 			});
 		}
 
+		$("#turno").val( ["Paimon's", "Your"][turn] + " turn" );
+		$("#wombat").hide();
+
 		if (turn == 0) {
 
-			$("#turno").val( "Paimon's turn" );
 			paimon_move();
 		}
-		else {
-
-			$("#turno").val( "Your turn" );
-		}
-
-		$("#wombat").hide();
 	}
 
 	function is_finished() {
@@ -171,9 +167,12 @@ window.onload = function () {
 
 		setTimeout(function () {
 
-			turn = 1-turn;
 			visually_update(index, "❌");
-			chicken_winner();
+
+			if ( !chicken_winner() ) {
+				
+				turn = 1-turn;
+			}
 
 		}, 1100);
 	}
@@ -209,6 +208,7 @@ window.onload = function () {
 	}
 
 	$("#wombat").click(function () {
+		
 		innit();
 	});
 
