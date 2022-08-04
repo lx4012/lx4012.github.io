@@ -1,3 +1,4 @@
+
 function resetServices(loading) {
 
 	if ( loading ) {
@@ -28,6 +29,22 @@ function addDisabledService(filename){
 	container.appendChild(account);
 }
 
+function addSpecialService(filename){
+
+	let image = new Image();
+	image.setAttribute("class", "account-image");
+	image.style.backgroundImage = 'url("static/assets/' + filename + '")';
+
+	let account = document.createElement("a");
+	account.setAttribute("href", "#");
+	account.setAttribute("class", "account");
+	account.appendChild(image);
+	account.onclick = LetsGo;
+
+	let container = document.getElementById("accounts-container");
+	container.appendChild(account);
+}
+
 function addService(filename, URL){
 
 	let image = new Image();
@@ -52,10 +69,8 @@ function addRegularServices() {
 	addService("movistar.png", "https://movistartv.cl/tv-guide/now");
 }
 
-const initialize = function () {
-
-	resetServices(true);
-
+const LetsGo = function () {
+	
 	const xhttp = new XMLHttpRequest();
 	xhttp.timeout = 1000;
 	xhttp.onload = function() {
@@ -64,7 +79,7 @@ const initialize = function () {
 
 		if ( this.responseText == "1" ) {
 
-			addService("netflix.png", "https://www.netflix.com/browse");
+			location.href = "https://www.netflix.com/browse";
 		}
 		else
 		{
@@ -89,4 +104,41 @@ const initialize = function () {
 	xhttp.send();
 }
 
-window.onload = initialize;
+const CheckServiceStatus = function () {
+
+	resetServices(true);
+
+	const xhttp = new XMLHttpRequest();
+	xhttp.timeout = 1000;
+	xhttp.onload = function() {
+
+		resetServices();
+
+		if ( this.responseText == "1" ) {
+
+			addSpecialService("netflix.png");
+		}
+		else
+		{
+			addDisabledService("netflix.png");
+		}
+
+		addRegularServices();
+    }
+	xhttp.onerror = function () {
+
+		resetServices();
+		addDisabledService("netflix.png");
+		addRegularServices();
+	}
+	xhttp.ontimeout = function () {
+
+		resetServices();
+		addDisabledService("netflix.png");
+		addRegularServices();
+	}
+	xhttp.open("GET", "https://elementalvision.ddns.net/streaming/test.php", true);
+	xhttp.send();
+}
+
+window.onload = CheckServiceStatus;
