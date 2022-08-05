@@ -75,18 +75,16 @@ const LetsGo = function () {
 	xhttp.timeout = 1000;
 	xhttp.onload = function() {
 
-		resetServices();
-
 		if ( this.responseText == "1" ) {
 
 			location.href = "https://www.netflix.com/browse";
 		}
 		else
 		{
+			resetServices();
 			addDisabledService("netflix.png");
-		}
-
-		addRegularServices();
+			addRegularServices();
+		}	
     }
 	xhttp.onerror = function () {
 
