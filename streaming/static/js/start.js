@@ -98,7 +98,7 @@ const LetsGo = function () {
 		addDisabledService("netflix.png");
 		addRegularServices();
 	}
-	xhttp.open("GET", "https://elementalvision.ddns.net/streaming/test.php", true);
+	xhttp.open("GET", "https://elementalvision.ddns.net/toaster/test.php", true);
 	xhttp.send();
 }
 
@@ -135,7 +135,7 @@ const CheckServiceStatus = function () {
 		addDisabledService("netflix.png");
 		addRegularServices();
 	}
-	xhttp.open("GET", "https://elementalvision.ddns.net/streaming/test.php?rd=" + Date.now(), true);
+	xhttp.open("GET", "https://elementalvision.ddns.net/toaster/test.php?rd=" + Date.now(), true);
 	xhttp.send();
 }
 
